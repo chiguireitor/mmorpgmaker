@@ -3,6 +3,8 @@ MMORPGMaker
 
 Massive Multiplayer Online RPG Engine with Bitcoin and Counterparty integration
 
+![Pre-alpha screenshot](https://github.com/chiguireitor/mmorpgmaker/raw/master/promo/pre-alpha.png "Prealpha screenshot")
+
 MIT Licensed
 
 Requisites:
