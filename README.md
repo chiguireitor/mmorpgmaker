@@ -1,7 +1,7 @@
 MMORPGMaker
 ===========
 
-Massive Multiplayer Online RPG Engine
+Massive Multiplayer Online RPG Engine with Bitcoin and Counterparty integration
 
 MIT Licensed
 
@@ -30,6 +30,18 @@ For production environments you'll need:
  * CouchDB with at least 3 nodes
  * Pretty good experience on handling high load services
 
+Known issues:
+==
+
+ * Editor behaves erratically when drawing multi-cell stuff
+ * No persistance between reboots of the map
+ * Still a lot of UI issues
+
 Still a lot of stuff to be done, this is just a pre-alpha release.
+
+Donations:
+==
+
+1PDJv8u8zw4Fgqr4uCb2yim9fgTs5zfM4s
 
 Chiguireitor
