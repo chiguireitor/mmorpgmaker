@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="/css/client.css" rel="stylesheet" type="text/css">
+</head>
+
+<body style="padding: 0; margin: 0;">
+  <div id="finance">
+    <p style="text-align:right">
+      <img id="symbol" src="/img/btc.png" style=""><span id="balanceTotal">0.0000</span>
+      <button id="expander" onclick="toggleFinance()">&lt;</button>
+    </p>
+
+    <p id="addressBlock" style="display: none">
+      <span id="address"></span><button id="detailExpand" onclick="toggleDetail()">\/</button>
+
+      <div id="balances" style="display: none">
+        <p id="balance_btc">0.0000 BTC</p>
+        <p id="balance_xcp">0.0000 XCP</p>
+        <p id="balance_pepecash">0.0000 PEPECASH</p>
+      </div>
+    </p>
+
+  </div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/phaser.min.js"></script>
+  <script src="/js/bitcoin.min.js"></script>
+  <script src="/js/mnemonic.js"></script>
+
+  <script src="/js/ui.js"></script>
+  <script src="/js/wallet.js"></script>
+  <script src="/js/client.js"></script>
+</body>
+</html>

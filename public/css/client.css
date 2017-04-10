@@ -1,0 +1,23 @@
+body {
+  font-family: 'Roboto', 'Ubuntu', 'Calibri', helvetica, arial, sans;
+}
+
+#finance {
+  position: fixed;
+  right: 0px;
+  background: #fff;
+  border-radius: 5px;
+  border: #eee 1px solid;
+  padding: 4px;
+  margin: 3px;
+  box-shadow: 0 0 2px 0 #000;
+}
+
+#finance #symbol {
+  vertical-align: middle;
+  margin-right: 3px;
+}
+
+#finance #expander {
+  display: inline-block;
+}

@@ -1,0 +1,24 @@
+{
+  "name": "mmorpgmaker",
+  "version": "0.0.1",
+  "description": "A MMORPG Maker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "game",
+    "engine",
+    "rpg",
+    "maker"
+  ],
+  "author": "Chiguireitor",
+  "license": "MIT",
+  "dependencies": {
+    "bitcoinjs-lib": "^2.3.0",
+    "express": "^4.15.2",
+    "redis": "^2.7.1",
+    "socket.io": "^1.7.3",
+    "yargs": "^7.0.2"
+  }
+}
