@@ -20,81 +20,45 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 const fs = require('fs')
 const argv = require('yargs').argv
-const cluster = require('cluster')
 const config = JSON.parse(fs.readFileSync(argv.config || './config.json'))
-const numCPUs = 1 //require('os').cpus().length
-
-var workers = {}
-var workersByName = {}
-
-function startWorker(name, args) {
-  cluster.setupMaster({
-    exec: name + '.js',
-    args: args || process.argv,
-    false: true
-  })
-
-  let worker = cluster.fork(process.env)
-  if (!(name in workersByName)) {
-    workersByName[name] = []
-  }
-  workers[worker.id] = {name, args}
-  workersByName[name].push(worker.id)
-}
-
-cluster.on('message', (worker, msg, handle) => {
-  console.log('Cluster message', msg)
-  if ('target' in msg) {
-    cluster.workers[msg.target].send(msg)
-  } else if ('workerByName' in msg) {
-    if (msg.workerByName in workersByName) {
-      for (let i=0; i < workersByName[msg.workerByName].length; i++) {
-        let wid = workersByName[msg.workerByName][i]
-        console.log('Wid', wid)
-        console.log('Worker', workers[wid])
-        cluster.workers[wid].send(msg)
-      }
-    }
-  }
-})
-
-for (let i=0; i < numCPUs; i++) {
-  startWorker('webworker')
-}
-
-startWorker('maps')
-
-/*const crypto = require('crypto')
+const crypto = require('crypto')
 const express = require('express')
 const app = express()
 const http = require('http').Server(app)
 const io = require('socket.io')(http)
 const message = require('bitcoinjs-lib').message
 
+const mapsDb = require('./maps.js')
+
 app.use(express.static('public'))
 
 const HTTP_PORT = config.http.port || 3000
 
 http.listen(HTTP_PORT, function(){
-  console.log('listening on *:' + HTTP_PORT)
+  console.log('HTTP Worker listening on *:' + HTTP_PORT)
 })
 
 var worldSize = [64, 64]
 var maps = {}
 
 function loadMap(n, cb) {
-  let w = 64, h = 64
-  maps[n] = {
-    w,
-    h,
-    tileset: 'gfx/Overworld.png',
-    layers: [Array(w*h).fill(-1), Array(w*h).fill(-1), Array(w*h).fill(-1)]
-  }
+  mapsDb.loadMap(n).then((data) => {
+    maps[n] = data
 
-  cb()
+    cb()
+  }).catch((data) => {
+    let w = 64, h = 64
+    maps[n] = {
+      w,
+      h,
+      tileset: 'gfx/Overworld.png',
+      layers: [Array(w*h).fill(-1), Array(w*h).fill(-1), Array(w*h).fill(-1)]
+    }
+
+    cb()
+  })
 }
 
 io.on('connection', function(socket){
@@ -243,4 +207,3 @@ io.on('connection', function(socket){
     }
   })
 })
-*/
