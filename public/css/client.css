@@ -1,5 +1,6 @@
 body {
-  font-family: 'Roboto', 'Ubuntu', 'Calibri', helvetica, arial, sans;
+  padding: 0;
+  margin: 0;
 }
 
 #finance {
@@ -11,6 +12,7 @@ body {
   padding: 4px;
   margin: 3px;
   box-shadow: 0 0 2px 0 #000;
+  display: none;
 }
 
 #finance #symbol {
@@ -20,4 +22,22 @@ body {
 
 #finance #expander {
   display: inline-block;
+}
+
+#menuDrop {
+  position: absolute;
+  right: 0px;
+}
+
+#menu {
+  --background: #fff;
+  --border-radius: 5px;
+  --border: #eee 1px solid;
+  padding: 4px;
+  margin: 3px;
+  --box-shadow: 0 0 2px 0 #000;
+}
+
+.editModeVisible {
+  display: none;
 }

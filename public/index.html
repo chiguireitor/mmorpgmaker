@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, max-scale=1">
   <link href="/css/client.css" rel="stylesheet" type="text/css">
+  <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 </head>
 
-<body style="padding: 0; margin: 0;">
+<body>
   <div id="finance">
     <p style="text-align:right">
       <img id="symbol" src="/img/btc.png" style=""><span id="balanceTotal">0.0000</span>
-      <button id="expander" onclick="toggleFinance()">&lt;</button>
+      <button id="expander" onclick="toggleFinance()" class="btn btn-sm btn-default"><i class="glyphicon glyphicon-chevron-left"></i></button>
     </p>
 
     <p id="addressBlock" style="display: none">
-      <span id="address"></span><button id="detailExpand" onclick="toggleDetail()">\/</button>
+      <span id="address"></span><button id="detailExpand" onclick="toggleDetail()" class="btn btn-sm btn-default"><i class="glyphicon glyphicon-chevron-down"></i></button>
 
       <div id="balances" style="display: none">
         <p id="balance_btc">0.0000 BTC</p>
@@ -20,15 +24,65 @@
         <p id="balance_pepecash">0.0000 PEPECASH</p>
       </div>
     </p>
-
   </div>
+
+<div class="dropdown" id="menuDrop">
+  <div id="menu" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <i class="glyphicon glyphicon-menu-hamburger"></i>
+  </div>
+  <ul class="dropdown-menu dropdown-menu-right" id="mainMenu1" aria-labelledby="dropdownMenu1">
+    <li><a href="javascript:void(0)" onclick="">Close menu</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="javascript:void(0)" onclick="showWorldMap()">Map</a></li>
+    <li><a href="javascript:void(0)" onclick="showFinances()">Finances</a></li>
+    <li><a href="javascript:void(0)" onclick="showInventory()">Inventory</a></li>
+    <li><a href="javascript:void(0)" onclick="showQuests()">Quests</a></li>
+    <li><a href="javascript:void(0)" onclick="showFriends()">Friends</a></li>
+    <li><a href="javascript:void(0)" onclick="showSettings()">Settings</a></li>
+    <li role="separator" class="divider"></li>
+    <li class="editModeInvisible"><a href="javascript:void(0)" onclick="toggleEditMode()">Enter Edit mode</a></li>
+    <li class="editModeVisible"><a href="javascript:void(0)" onclick="toggleEditMode()">Exit Edit mode</a></li>
+    <li class="editModeVisible"><a href="javascript:void(0)" onclick="saveMap()">Save map</a></li>
+    <li class="editModeVisible"><a href="javascript:void(0)" onclick="manageTilesets()">Manage tilesets</a></li>
+  </ul>
+</div>
+
+<!-- Large modal -->
+<div id="dialog1" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <!--button type="button" class="btn btn-default" data-dismiss="modal"></button>
+        <button type="button" class="btn btn-primary">Save changes</button-->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bs-example-modal-sm" tabindex="-1">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+
   <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/jquery-3.2.1.min.js"></script>
   <script src="/js/phaser.min.js"></script>
   <script src="/js/bitcoin.min.js"></script>
   <script src="/js/mnemonic.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/handlebars.min-v4.0.5.js"></script>
 
   <script src="/js/ui.js"></script>
   <script src="/js/wallet.js"></script>
   <script src="/js/client.js"></script>
+  <script src="/js/editmode.js"></script>
 </body>
 </html>

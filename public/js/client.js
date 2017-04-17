@@ -44,21 +44,26 @@ var tileStrip, tileSelector
 var editMode = false
 
 function eid(id) {
+  console.log('DEPRECATED eid')
   return document.getElementById(id)
 }
 
 function show(id, s) {
+  console.log('DEPRECATED show')
   document.getElementById(id).style.display = s || 'block'
 }
 
 function hide(id) {
+  console.log('DEPRECATED hide')
   document.getElementById(id).style.display = 'none'
 }
 
 function preload() {
   startWallet(function(addr) {
-    eid('address').innerText = addr
+    $('#address').text(addr)
   })
+
+  $('[data-toggle="tooltip"]').tooltip()
 }
 
 function create() {
@@ -122,18 +127,10 @@ function create() {
       loader.start()
 
       layer1 = map.create('level1', mapData.w, mapData.h, 16, 16);
-      /*layer1.scrollFactorX = 0.5;
-      layer1.scrollFactorY = 0.5;*/
-
       layer1.resizeWorld();
 
       layer2 = map.createBlankLayer('level2', mapData.w, mapData.h, 16, 16);
-      /*layer2.scrollFactorX = 0.8;
-      layer2.scrollFactorY = 0.8;*/
-
       layer3 = map.createBlankLayer('level3', mapData.w, mapData.h, 16, 16);
-
-
 
       currentLayer = layer1
       currentLayerIndex = 0
@@ -147,6 +144,8 @@ function create() {
       if (data === 'edit') {
         editMode = true
         marker.visible = true
+        $(".editModeVisible").show()
+        $(".editModeInvisible").hide()
       } else if (data === 'play') {
         editMode = false
         tileSelector.visible = false
@@ -154,6 +153,9 @@ function create() {
         layer2.visible = true
         layer3.visible = true
         marker.visible = false
+
+        $(".editModeVisible").hide()
+        $(".editModeInvisible").show()
       }
     })
 
@@ -162,6 +164,10 @@ function create() {
         var sign = signMessage(data)
         socket.emit('responseModeChallenge', sign)
       })
+    })
+
+  socket.on('error', function(data) {
+      alert(data)
     })
 }
 

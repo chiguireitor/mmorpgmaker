@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
- 
+
 var UI_CODE = {
   "NO_PASS": {
     "en": "No password provided",
@@ -63,23 +63,49 @@ function uiError(code, detail) {
 }
 
 function toggleFinance() {
-  var addr = eid('addressBlock')
-  if (addr.style.display === 'none') {
-    addr.style.display = 'block'
-    eid('expander').innerText = '>'
+  var addr = $('#addressBlock')
+  var exp = $('#expander i')
+  exp.toggleClass('glyphicon-chevron-left')
+  exp.toggleClass('glyphicon-chevron-right')
+
+  if (addr.is(':visible')) {
+    addr.fadeOut()
   } else {
-    addr.style.display = 'none'
-    eid('expander').innerText = '<'
+    addr.fadeIn()
   }
 }
 
 function toggleDetail() {
-  var bals = eid('balances')
-  if (bals.style.display === 'none') {
-    bals.style.display = 'block'
-    eid('detailExpand').innerText = '/\\'
+  var bals = $('#balances')
+  var exp = $('#detailExpand i')
+  exp.toggleClass('glyphicon-chevron-up')
+  exp.toggleClass('glyphicon-chevron-down')
+
+  if (bals.is(':visible')) {
+    bals.fadeOut()
   } else {
-    bals.style.display = 'none'
-    eid('detailExpand').innerText = '\\/'
+    bals.fadeIn()
   }
+}
+
+function modalDialog(options) {
+  var type = options.large?'modal-lg':'modal-sm'
+  var dlgComp = $("#dialog1")
+  var dlg = dlgComp.find('.modal-dialog')
+  var ttl = dlgComp.find('.modal-title')
+  dlg.removeClass('modal-sm')
+  dlg.removeClass('modal-lg')
+  dlg.addClass(type)
+
+  // TODO Compile and run with handlebars
+  dlgComp.find('.modal-body').html(options.content)
+  ttl.text(options.title)
+
+  if (options.buttons) {
+    dlgComp.find('.modal-footer').show()
+  } else {
+    dlgComp.find('.modal-footer').hide()
+  }
+
+  dlgComp.modal('show')
 }

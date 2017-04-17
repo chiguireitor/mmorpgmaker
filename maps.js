@@ -58,6 +58,7 @@ function handleWorkerMessage(msg) {
   if (msg.action === 'loadMap') {
     wrapPromiseWorker('loadMap', msg.returnPath, loadMap(msg.data))
   } else if (msg.action === 'saveMap') {
+    console.log(msg.data)
     wrapPromiseWorker('saveMap', msg.returnPath, saveMap(msg.data.n, msg.data.data))
   }
 }

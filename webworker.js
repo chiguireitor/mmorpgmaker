@@ -61,6 +61,14 @@ function loadMap(n, cb) {
   })
 }
 
+function saveMap(n, cb) {
+  mapsDb.saveMap(n, maps[n]).then((data) => {
+    cb(null, 'saved')
+  }).catch((data) => {
+    cb(data, null)
+  })
+}
+
 io.on('connection', function(socket){
   console.log('A user connected')
   socket.gameData = {
@@ -144,7 +152,7 @@ io.on('connection', function(socket){
 
   socket.on('setMap', (data) => {
     let allowed = false
-    if (socket.mode === 'edit') {
+    if (socket.gameData.mode === 'edit') {
       allowed = true
     } else {
       if (Array.isArray(data) && (data.toString() === '0,0,0')) {
@@ -204,6 +212,22 @@ io.on('connection', function(socket){
   socket.on('cursor', (data) => {
     if (socket.gameData.mode === 'edit') {
       socket.broadcast.to('room-' + socket.gameData.currentRoom).emit('cursor', data)
+    }
+  })
+
+  socket.on('saveMap', (data) => {
+    let allowed = false
+    if (socket.gameData.mode === 'edit') {
+
+      saveMap(socket.gameData.currentRoom, (err, data) => {
+        if (err) {
+          socket.emit('error', err)
+        } else {
+          socket.emit('saved', data)
+        }
+      })
+    } else {
+      socket.emit('error', 'denied')
     }
   })
 })
